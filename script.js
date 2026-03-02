@@ -6,7 +6,7 @@ const longoBtn = document.querySelector(".app__card-button--longo");
 const btnsModes = document.querySelectorAll(".app__card-button");
 
 const tempFoco = 1500, tempCurto = 300, tempLongo = 900;
-let temporizadorSeg = 5;
+let temporizadorSeg = tempFoco;
 let intervaloID = null;
 
 const timer = document.querySelector("#timer");
@@ -49,14 +49,20 @@ function alterarContexto (contexto) {
         case "foco":
             title.innerHTML = 'Otimize sua produtividade,<br><strong class="app__title-strong">mergulhe no que importa.</strong>';
             focoBtn.classList.add("active");
+            temporizadorSeg = tempFoco;
+            mostrarTempo();
             break;
         case "descanso-curto":
             title.innerHTML = 'Que tal dar uma respirada?<br><strong class="app__title-strong">Faça uma pausa curta!</strong>';
             curtoBtn.classList.add("active");
+            temporizadorSeg = tempCurto;
+            mostrarTempo();
             break;
         case "descanso-longo":
             title.innerHTML = 'Hora de voltar à superficie<br><strong class="app__title-strong">Faça uma pausa longa!</strong>';
             longoBtn.classList.add("active");
+            temporizadorSeg = tempLongo;
+            mostrarTempo();
             break;
     }
 }
@@ -70,6 +76,7 @@ const contagemRegressiva = () => {
     } 
     temporizadorSeg--;
     console.log(`Temporizador: ${temporizadorSeg} segundos`);
+    mostrarTempo();
 }
 
 start_pause_btn.addEventListener("click", iniciar_pausar)
@@ -92,3 +99,11 @@ function zerar() {
     clearInterval(intervaloID);
     intervaloID = null;
 }
+
+function mostrarTempo() {
+    const tempo = new Date(temporizadorSeg * 1000);
+    const tempoFormatado = tempo.toLocaleString("pt-BR", { minute: "2-digit", second: "2-digit" });
+    timer.innerHTML = `${tempoFormatado}`;
+}
+
+mostrarTempo();

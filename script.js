@@ -74,13 +74,12 @@ const contagemRegressiva = () => {
         const focoAtivo = html.getAttribute('data-contexto') == 'foco';
         if (focoAtivo) {
             const evento = new CustomEvent('focoFinalizado');
-            html.dispatchEvent(evento);
+            document.dispatchEvent(evento);
         }
         zerar()
         return;
     } 
     temporizadorSeg--;
-    console.log(`Temporizador: ${temporizadorSeg} segundos`);
     mostrarTempo();
 }
 

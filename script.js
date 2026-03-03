@@ -71,6 +71,11 @@ const contagemRegressiva = () => {
     if (temporizadorSeg <= 0){
         // finalizado.play();
         alert("Tempo esgotado!");
+        const focoAtivo = html.getAttribute('data-contexto') == 'foco';
+        if (focoAtivo) {
+            const evento = new CustomEvent('focoFinalizado');
+            html.dispatchEvent(evento);
+        }
         zerar()
         return;
     } 
